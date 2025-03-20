@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: danchiwaz/todo-app:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ConnectionStrings__DefaultConnection
+              value: "Host=postgres;Port=5432;Database=todo_db;Username=admin;Password=password"
+              
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: todo-app
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+    
