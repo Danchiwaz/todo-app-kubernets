@@ -41,7 +41,7 @@ jobs:
 
       - name: Build and Push Backend Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest -f backend/Dockerfile ./backend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest -f backend/Backend/Dockerfile ./backend
           docker push ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest
 
   build-and-push-frontend:
@@ -60,7 +60,7 @@ jobs:
 
       - name: Build and Push Frontend Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest -f frontend/Dockerfile ./frontend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest -f frontend/frontend/Dockerfile ./frontend
           docker push ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest
 
   deploy-k8s:
